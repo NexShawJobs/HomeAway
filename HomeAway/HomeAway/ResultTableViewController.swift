@@ -156,14 +156,11 @@ class ResultTableViewController: UITableViewController ,UISearchBarDelegate {
             if(self.eventArray.count > 0){
                 for i in 0...self.eventArray.count - 1 {
                     let strUrl = self.eventArray[i]["imageUrlStr"] as! String
-                    print(strUrl)
                     if(strUrl != "no image"){
                         self.viewModel.fetchEventImage(for: strUrl, index: i, completion: {
                             self.eventArray[i]["image"] = self.viewModel.eventArray[i]["image"]
 
                             DispatchQueue.main.async {
-                                //self.viewModel.eventArray[i]["image"] = image
-                                //self.eventArray[i]["image"] = image
                                 self.tableView.reloadData()
                             }
                         })

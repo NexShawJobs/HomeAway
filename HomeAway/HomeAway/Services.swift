@@ -101,7 +101,7 @@ class Services: NSObject {
     }
     
     func stringUrlForEventData(forQuery query:String) -> String{
-        print(Services.baseURL  + "?client_id=\(Services.client_id)&\(query)")
+        //print(Services.baseURL  + "?client_id=\(Services.client_id)&\(query)")
         return  Services.baseURL  + "?client_id=\(Services.client_id)&\(query)"
     }
     

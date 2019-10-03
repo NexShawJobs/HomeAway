@@ -22,7 +22,6 @@ class DetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        print(rValue)
         imageView.image = rValue["image"] as? UIImage
         timeLabel.text = rValue["datetime_utc"] as? String
         locationLabel.text = rValue["extended_address"] as? String
