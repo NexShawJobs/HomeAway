@@ -185,12 +185,11 @@ class ResultTableViewController: UITableViewController ,UISearchBarDelegate {
             $0 == " " ? "+" : $0
         })
         
-        self.getData(forQuery: queryText)
         if(queryText.count == 0){
             self.eventArray.removeAll()
             self.tableView.reloadData()
+        }else{
+            self.getData(forQuery: queryText)
         }
     }
-    
-
 }
