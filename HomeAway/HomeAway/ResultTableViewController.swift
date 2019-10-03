@@ -8,8 +8,12 @@
 
 import UIKit
 
-class ResultTableViewController: UITableViewController {
+class ResultTableViewController: UITableViewController, UISearchBarDelegate {
+    @IBOutlet var viewModel: ViewModel!
+    var eventResponseData: Data = Data()
+    var eventArray = [[String:Any]]()
 
+    let searchBar = UISearchBar()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,7 +23,21 @@ class ResultTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        self.tableView.reloadData()
+        self.tableView.rowHeight = 90
+        
+        
+        searchBar.delegate = self
+        searchBar.sizeToFit()
+        searchBar.placeholder = ""
+        let attributes:[NSAttributedString.Key:Any] = [
+            NSAttributedString.Key.foregroundColor : UIColor.white,
+        ]
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1.0)
+        textFieldInsideSearchBar?.backgroundColor = UIColor(red: 41/255, green: 70/255, blue: 88/255, alpha: 1.0)
+        searchBar.showsCancelButton = true
+        self.navigationController?.navigationBar.topItem?.titleView = searchBar
     }
 
     // MARK: - Table view data source
@@ -31,13 +49,30 @@ class ResultTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return self.eventArray.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        
+        let img = (self.viewModel.eventArray[indexPath.row]["image"] as! UIImage)
+        cell.imageView?.image = img
+        let itemSize = CGSize.init(width: 70, height: 70)
+        UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.main.scale);
+        let imageRect = CGRect.init(origin: CGPoint.zero, size: itemSize)
+        cell.imageView?.image!.draw(in: imageRect)
+        cell.imageView?.image! = UIGraphicsGetImageFromCurrentImageContext()!;
+        UIGraphicsEndImageContext();
+        
+        cell.textLabel?.text = (self.viewModel.eventArray[indexPath.row]["title"] as! String)
+        
+        cell.detailTextLabel?.numberOfLines = 2
+        let location = (self.viewModel.eventArray[indexPath.row]["extended_address"] as! String)
+        let date = (self.viewModel.eventArray[indexPath.row]["datetime_utc"] as! String)
+        let txt = "\(location)\n\(date)"
+        
+        cell.detailTextLabel?.text = txt
         // Configure the cell...
         return cell
     }
@@ -92,6 +127,57 @@ class ResultTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "showD" {
 
+        }
+    }
+    
+    // Mark:- Data
+    func getData(forQuery query: String) {
+        self.viewModel.fetchEventData(for: viewModel.stringUrlForEventData(forQuery: "q=" + query), completion: {
+            
+            self.eventArray = self.viewModel.eventArray
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+            if(self.eventArray.count > 0){
+                for i in 0...self.eventArray.count - 1 {
+                    let strUrl = self.eventArray[i]["imageUrlStr"] as! String
+                    print(strUrl)
+                    if(strUrl != "no image"){
+                        self.viewModel.fetchEventImage(for: strUrl, index: i, completion: {
+                            self.eventArray[i]["image"] = self.eventArray[i]["image"]
+
+                            DispatchQueue.main.async {
+                                //self.viewModel.eventArray[i]["image"] = image
+                                //self.eventArray[i]["image"] = image
+                                self.tableView.reloadData()
+                            }
+                        })
+                    }
+                }
+            }
+        })
+        
+
+    }
+    
+    //Mark:- Search Bar Delegate
+    
+     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
+        
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as! UITextField
+        guard let txt = textFieldInsideSearchBar.text else {
+            return
+        }
+        
+        let queryText = String(txt.map {
+            $0 == " " ? "+" : $0
+        })
+        
+        self.getData(forQuery: queryText)
+        if(queryText.count == 0){
+            self.eventArray.removeAll()
+            self.tableView.reloadData()
         }
     }
     

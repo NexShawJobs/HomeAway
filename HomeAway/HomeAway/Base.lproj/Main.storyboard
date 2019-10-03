@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--R-->
         <scene sceneID="R9s-VI-NWl">
             <objects>
                 <tableViewController id="rcW-hI-oTt" customClass="ResultTableViewController" customModule="HomeAway" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,12 +19,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" id="gtD-8g-yBQ">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" textLabel="EuI-Bh-1ZW" detailTextLabel="mnN-2C-Uf4" rowHeight="90" style="IBUITableViewCellStyleSubtitle" id="gtD-8g-yBQ">
+                                <rect key="frame" x="0.0" y="28" width="414" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gtD-8g-yBQ" id="bt3-8h-9Uj">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EuI-Bh-1ZW">
+                                            <rect key="frame" x="20" y="25" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mnN-2C-Uf4">
+                                            <rect key="frame" x="20" y="48.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                                 <connections>
                                     <segue destination="uAL-43-tEf" kind="show" identifier="showD" id="dYu-oE-FUp"/>
@@ -36,9 +52,18 @@
                             <outlet property="delegate" destination="rcW-hI-oTt" id="l6D-kp-EFR"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="gqL-0C-JnM"/>
+                    <navigationItem key="navigationItem" title="R" id="gqL-0C-JnM"/>
+                    <connections>
+                        <outlet property="viewModel" destination="P97-VR-IaI" id="Gzb-eY-X5T"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wIh-Ei-XgI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="P97-VR-IaI" customClass="ViewModel" customModule="HomeAway" customModuleProvider="target">
+                    <connections>
+                        <outlet property="services" destination="Jy3-vS-PJa" id="v0s-gc-ifQ"/>
+                    </connections>
+                </customObject>
+                <customObject id="Jy3-vS-PJa" customClass="Services" customModule="HomeAway" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="491" y="822"/>
         </scene>
@@ -49,6 +74,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CbP-k9-nRq">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.066666666666666666" green="0.19215686274509802" blue="0.27450980392156865" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="rcW-hI-oTt" kind="relationship" relationship="rootViewController" id="i87-9X-Rac"/>

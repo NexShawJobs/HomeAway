@@ -1,5 +1,4 @@
 xcuserdata/
-xcuserdata/*
-*xcuserdata*
 
-./HomeAway/HomeAway.xcodeproj/project.xcworkspace/xcuserdata/*
+#xcuserdata/*
+#*xcuserdata*
