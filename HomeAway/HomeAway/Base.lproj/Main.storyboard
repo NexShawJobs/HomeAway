@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--R-->
+        <!-- -->
         <scene sceneID="R9s-VI-NWl">
             <objects>
                 <tableViewController id="rcW-hI-oTt" customClass="ResultTableViewController" customModule="HomeAway" customModuleProvider="target" sceneMemberID="viewController">
@@ -52,7 +52,7 @@
                             <outlet property="delegate" destination="rcW-hI-oTt" id="l6D-kp-EFR"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="R" id="gqL-0C-JnM"/>
+                    <navigationItem key="navigationItem" title=" " id="gqL-0C-JnM"/>
                     <connections>
                         <outlet property="viewModel" destination="P97-VR-IaI" id="Gzb-eY-X5T"/>
                     </connections>
@@ -75,6 +75,13 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.066666666666666666" green="0.19215686274509802" blue="0.27450980392156865" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="rcW-hI-oTt" kind="relationship" relationship="rootViewController" id="i87-9X-Rac"/>
@@ -91,14 +98,44 @@
                     <view key="view" contentMode="scaleToFill" id="9cB-XZ-j10">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vkl-QY-ncj">
+                                <rect key="frame" x="20" y="108" width="374" height="347"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAh-gI-8Et">
+                                <rect key="frame" x="20" y="481" width="374" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2n6-Vl-sbJ">
+                                <rect key="frame" x="20" y="535" width="374" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OoV-wZ-qHv" firstAttribute="bottom" secondItem="vkl-QY-ncj" secondAttribute="bottom" constant="407" id="LeK-hf-aS5"/>
+                            <constraint firstItem="vkl-QY-ncj" firstAttribute="top" secondItem="OoV-wZ-qHv" secondAttribute="top" constant="20" id="ZRx-eD-fyO"/>
+                            <constraint firstItem="vkl-QY-ncj" firstAttribute="leading" secondItem="OoV-wZ-qHv" secondAttribute="leading" constant="20" id="ebN-bk-p3Z"/>
+                            <constraint firstItem="OoV-wZ-qHv" firstAttribute="trailing" secondItem="vkl-QY-ncj" secondAttribute="trailing" constant="20" id="kB7-el-KCL"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="OoV-wZ-qHv"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="HMv-qR-UqU"/>
+                    <connections>
+                        <outlet property="imageView" destination="vkl-QY-ncj" id="nRq-gQ-7sI"/>
+                        <outlet property="locationLabel" destination="2n6-Vl-sbJ" id="HIh-ep-WQk"/>
+                        <outlet property="timeLabel" destination="hAh-gI-8Et" id="XB9-Ix-ij9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LkO-2m-mvj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1245" y="822"/>
+            <point key="canvasLocation" x="1244.9275362318842" y="821.65178571428567"/>
         </scene>
     </scenes>
 </document>

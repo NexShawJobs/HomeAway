@@ -10,10 +10,22 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    
+    
+    var rValue = [String:Any]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        print(rValue)
+        imageView.image = rValue["image"] as? UIImage
+        timeLabel.text = rValue["datetime_utc"] as? String
+        locationLabel.text = rValue["extended_address"] as? String
     }
     
 

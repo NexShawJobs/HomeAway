@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ResultTableViewController: UITableViewController, UISearchBarDelegate {
+class ResultTableViewController: UITableViewController ,UISearchBarDelegate {
     @IBOutlet var viewModel: ViewModel!
     var eventResponseData: Data = Data()
     var eventArray = [[String:Any]]()
-
+    var rowIndex = 0
     let searchBar = UISearchBar()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +24,9 @@ class ResultTableViewController: UITableViewController, UISearchBarDelegate {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         self.tableView.rowHeight = 90
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.allowsSelection = true
         
         
         searchBar.delegate = self
@@ -56,7 +59,7 @@ class ResultTableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
         
-        let img = (self.viewModel.eventArray[indexPath.row]["image"] as! UIImage)
+        let img = (self.eventArray[indexPath.row]["image"] as! UIImage)
         cell.imageView?.image = img
         let itemSize = CGSize.init(width: 70, height: 70)
         UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.main.scale);
@@ -65,11 +68,11 @@ class ResultTableViewController: UITableViewController, UISearchBarDelegate {
         cell.imageView?.image! = UIGraphicsGetImageFromCurrentImageContext()!;
         UIGraphicsEndImageContext();
         
-        cell.textLabel?.text = (self.viewModel.eventArray[indexPath.row]["title"] as! String)
+        cell.textLabel?.text = (self.eventArray[indexPath.row]["title"] as! String)
         
         cell.detailTextLabel?.numberOfLines = 2
-        let location = (self.viewModel.eventArray[indexPath.row]["extended_address"] as! String)
-        let date = (self.viewModel.eventArray[indexPath.row]["datetime_utc"] as! String)
+        let location = (self.eventArray[indexPath.row]["extended_address"] as! String)
+        let date = (self.eventArray[indexPath.row]["datetime_utc"] as! String)
         let txt = "\(location)\n\(date)"
         
         cell.detailTextLabel?.text = txt
@@ -115,18 +118,29 @@ class ResultTableViewController: UITableViewController, UISearchBarDelegate {
     
     
     // MARK: - table view delegate
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath){
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
     }
 
     
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if segue.identifier == "showD" {
-
+            for navItem in(self.navigationController?.navigationBar.subviews)! {
+                for itemSubView in navItem.subviews {
+                    if let largeLabel = itemSubView as? UILabel {
+                        largeLabel.text = self.title
+                        largeLabel.numberOfLines = 2
+                        largeLabel.lineBreakMode = .byWordWrapping
+                    }
+                }
+            }
+            let index = self.tableView.indexPathForSelectedRow?.row
+            let vc = segue.destination as! DetailViewController
+            vc.rValue = self.eventArray[index!]
+            segue.destination.navigationItem.title = self.eventArray[index ?? 0]["title"] as? String
         }
     }
     
@@ -145,7 +159,7 @@ class ResultTableViewController: UITableViewController, UISearchBarDelegate {
                     print(strUrl)
                     if(strUrl != "no image"){
                         self.viewModel.fetchEventImage(for: strUrl, index: i, completion: {
-                            self.eventArray[i]["image"] = self.eventArray[i]["image"]
+                            self.eventArray[i]["image"] = self.viewModel.eventArray[i]["image"]
 
                             DispatchQueue.main.async {
                                 //self.viewModel.eventArray[i]["image"] = image
