@@ -12,7 +12,6 @@ class ResultTableViewController: UITableViewController ,UISearchBarDelegate {
     @IBOutlet var viewModel: ViewModel!
     var eventResponseData: Data = Data()
     var eventArray = [[String:Any]]()
-    var rowIndex = 0
     let searchBar = UISearchBar()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +70,7 @@ class ResultTableViewController: UITableViewController ,UISearchBarDelegate {
         
         cell.detailTextLabel?.numberOfLines = 2
         let location = (self.eventArray[indexPath.row]["extended_address"] as! String)
-        let date = (self.eventArray[indexPath.row]["datetime_utc"] as! String)
+        let date = self.UTCToLocal(date:self.eventArray[indexPath.row]["datetime_utc"] as! String)
         let txt = "\(location)\n\(date)"
         
         cell.detailTextLabel?.text = txt
@@ -139,6 +138,7 @@ class ResultTableViewController: UITableViewController ,UISearchBarDelegate {
             let index = self.tableView.indexPathForSelectedRow?.row
             let vc = segue.destination as! DetailViewController
             vc.rValue = self.eventArray[index!]
+            vc.rValue["datetime_utc"] = self.UTCToLocal(date: vc.rValue["datetime_utc"] as! String)
             segue.destination.navigationItem.title = self.eventArray[index ?? 0]["title"] as? String
         }
     }
@@ -191,4 +191,23 @@ class ResultTableViewController: UITableViewController ,UISearchBarDelegate {
             self.getData(forQuery: queryText)
         }
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar){
+        searchBar.resignFirstResponder()
+    }
+    
+    //Mark:- helpers
+    func UTCToLocal(date:String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        
+        let dt = dateFormatter.date(from: date)
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = "E, dd MMM yyyy hh:mm a"
+        
+        return dateFormatter.string(from: dt!)
+    }
+    
+    
 }
