@@ -70,7 +70,7 @@
         <!--Navigation Controller-->
         <scene sceneID="yGV-dZ-57l">
             <objects>
-                <navigationController id="Jl4-8o-u7W" customClass="NavigationController" customModule="HomeAway" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="Jl4-8o-u7W" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CbP-k9-nRq">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
