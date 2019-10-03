@@ -66,6 +66,7 @@ class ResultTableViewController: UITableViewController ,UISearchBarDelegate {
         cell.imageView?.layer.cornerRadius = 8.0
         cell.imageView?.clipsToBounds = true
         
+        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
         cell.textLabel?.text = (self.eventArray[indexPath.row]["title"] as! String)
         
         cell.detailTextLabel?.numberOfLines = 2
