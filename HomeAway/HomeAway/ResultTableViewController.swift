@@ -59,14 +59,15 @@ class ResultTableViewController: UITableViewController ,UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
         
-        let img = (self.eventArray[indexPath.row]["image"] as! UIImage)
-        cell.imageView?.image = img
+        cell.imageView?.image = (self.eventArray[indexPath.row]["image"] as! UIImage)
         let itemSize = CGSize.init(width: 70, height: 70)
         UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.main.scale);
         let imageRect = CGRect.init(origin: CGPoint.zero, size: itemSize)
         cell.imageView?.image!.draw(in: imageRect)
         cell.imageView?.image! = UIGraphicsGetImageFromCurrentImageContext()!;
         UIGraphicsEndImageContext();
+        cell.imageView?.layer.cornerRadius = 8.0
+        cell.imageView?.clipsToBounds = true
         
         cell.textLabel?.text = (self.eventArray[indexPath.row]["title"] as! String)
         
