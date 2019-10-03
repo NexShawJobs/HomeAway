@@ -27,7 +27,7 @@ class ViewModel: NSObject {
     func fetchEventImage(for strUrl:String, index:Int, completion:@escaping () -> ())  {
         
         services.fetchEventImage(for: strUrl, completion: { image in
-            if(self.eventArray.count > 0){
+            if(self.eventArray.count > 0 && self.eventArray.count - 1 >= index){
                 self.eventArray[index]["image"] = image
             }
             completion()

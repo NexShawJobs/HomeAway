@@ -22,9 +22,12 @@ class DetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        imageView.image = rValue["image"] as? UIImage
-        timeLabel.text = rValue["datetime_utc"] as? String
-        locationLabel.text = rValue["extended_address"] as? String
+        self.imageView.image = rValue["image"] as? UIImage
+        self.imageView.layer.cornerRadius = 20.0
+        self.imageView.clipsToBounds = true
+        
+        self.timeLabel.text = rValue["datetime_utc"] as? String
+        self.locationLabel.text = rValue["extended_address"] as? String
     }
     
 
