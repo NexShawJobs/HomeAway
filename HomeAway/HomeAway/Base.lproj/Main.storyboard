@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -132,7 +131,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OoV-wZ-qHv"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="HMv-qR-UqU"/>
+                    <navigationItem key="navigationItem" title="Title" id="HMv-qR-UqU">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="unfavorite.png" id="NKg-c3-ahL"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="vkl-QY-ncj" id="nRq-gQ-7sI"/>
                         <outlet property="locationLabel" destination="2n6-Vl-sbJ" id="HIh-ep-WQk"/>
@@ -144,4 +145,7 @@
             <point key="canvasLocation" x="1213" y="822"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="unfavorite.png" width="40" height="40"/>
+    </resources>
 </document>
